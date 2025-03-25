@@ -12,3 +12,4 @@ C:\Users\nicho\source\repos\QuickSort\obj\Debug\net8.0\refint\QuickSort.dll
 C:\Users\nicho\source\repos\QuickSort\obj\Debug\net8.0\QuickSort.pdb
 C:\Users\nicho\source\repos\QuickSort\obj\Debug\net8.0\QuickSort.genruntimeconfig.cache
 C:\Users\nicho\source\repos\QuickSort\obj\Debug\net8.0\ref\QuickSort.dll
+C:\Users\nicho\source\repos\QuickSort\obj\Debug\net8.0\QuickSort.sourcelink.json

@@ -1,37 +1,55 @@
-﻿namespace QuickSort
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics;
+
+namespace QuickSort
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int[] numbers = { 10, 7, 8, 9, 1, 5 };
+           Stopwatch sw = Stopwatch.StartNew();
 
+            Random random = new Random();
+            int[] arr = new int[20000];
 
-            Console.WriteLine("Unsorted array");
-            for (int i = 0; i < numbers.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                Console.Write(numbers[i] + " ");
+                arr[i] = random.Next(0, 20000);
             }
+
+            Console.WriteLine("Quick Sort");
+            Console.WriteLine("-----------");
+            sw.Start();
+            QuickSortFirst(arr, 0, arr.Length - 1);
+            sw.Stop();
+
+            Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
+
             Console.WriteLine();
-            QuickSort(numbers, 0, numbers.Length - 1);
+            Console.WriteLine("Quick Sort: First Element as Pivot");
+            Console.WriteLine("-----------------------");
 
-            Console.WriteLine("\nSorted array");
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                Console.Write(numbers[i] + " ");
-            }
+            sw.Restart();
+            QuickSortLast(arr, 0, arr.Length - 1);
+            sw.Stop();
+            Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
+
+
+
         }
 
-        public static void QuickSort(int[] arr, int low, int high)
+        public static void QuickSortFirst(int[] arr, int low, int high)
         {
             if (low < high)
             {
-                int pi = Partition(arr, low, high);
-                QuickSort(arr, low, pi - 1);
-                QuickSort(arr, pi + 1, high);
+                int pi = PartitionFirst(arr, low, high);
+                QuickSortFirst(arr, low, pi - 1);
+                QuickSortFirst(arr, pi + 1, high);
             }
         }
-        public static int Partition(int[] arr, int low, int high)
+        public static int PartitionFirst(int[] arr, int low, int high)
         {
             int pivot = arr[high];
             int i = low - 1;
@@ -49,6 +67,41 @@
             arr[i + 1] = arr[high];
             arr[high] = temp;
             return i + 1;
+        }
+        public static void QuickSortLast(int[] arr, int low, int high)
+        {
+            if (low < high)
+            {
+                int pi = PartitionLast(arr, low, high);
+                QuickSortLast(arr, low, pi - 1);
+                QuickSortLast(arr, pi + 1, high);
+            }
+        }
+        public static int PartitionLast(int[] arr, int low, int high)
+        {
+            int pivot = arr[low];
+            int left = low + 1;
+            int right = high;
+
+            while (true)
+            {
+                while (left <= right && arr[left] <= pivot)
+                    left++;
+
+                while (left <= right && arr[right] >= pivot)
+                    right--;
+
+                if (left > right)
+                    break;
+
+                int temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+            }
+
+            arr[low] = arr[right];
+            arr[right] = pivot;
+            return right;
         }
     }
 }
